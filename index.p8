@@ -2,7 +2,8 @@ pico-8 cartridge // http://www.pico-8.com
 version 43
 __lua__
 glb = {
-	score = 0
+	score = 0,
+	time = 3600
 }
 
 sd = {
@@ -102,6 +103,8 @@ function s0init()
 end
 
 function s0update()
+	glb.time -= 1
+
 	movement(plr)
 	
 	if collide(plr, sd, 1) then 
@@ -114,6 +117,7 @@ function s0draw()
 	map(sd.mapX, sd.mapY)
 	spr(plr.spr, plr.x, plr.y, plr.w, plr.h, plr.fx, plr.fy)
 	print(glb.score, 2,122, 0)
+	print(flr(glb.time / 60), 119,122,0)
 end
 -->8
 sceneManager = {
