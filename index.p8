@@ -94,8 +94,8 @@ function movement(o)
 	end
 end
 
-function collectCoin(o)
-	mset(o.x / 8, o.y / 8, 0)
+function collectCoin(o, sd)
+	mset(flr(o.x / 8) + (sd.mapX * 16), flr(o.y / 8) + (sd.mapY * 16), 0)
 	glb.score += 1
 end
 -->8
@@ -104,17 +104,37 @@ end
 
 function s0update()
 	glb.time -= 1
-
 	movement(plr)
+
+	if plr.x >= ((sd.mapX + 1)) * 128 then
+		sd.mapX += 1
+		plr.x -= 128
+	end
+
+	if plr.x < 0 then
+		sd.mapX -= 1
+		plr.x = 120
+	end
+
+
+	if plr.y >= ((sd.mapY + 1)) * 128 then
+		sd.mapY += 1
+		plr.y -= 128
+	end
+
+	if plr.y < 0 then
+		sd.mapY -= 1
+		plr.y = 120
+	end
 	
 	if collide(plr, sd, 1) then 
-		collectCoin(plr)
+		collectCoin(plr, sd)
 	end
 end
 
 function s0draw()
 	cls()
-	map(sd.mapX, sd.mapY)
+	map(sd.mapX * 16, sd.mapY * 16)
 	spr(plr.spr, plr.x, plr.y, plr.w, plr.h, plr.fx, plr.fy)
 	print(glb.score, 2, 122, 3)
 	print(flr(glb.time / 60), 2, 2, 3)
