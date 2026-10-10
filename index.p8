@@ -150,8 +150,11 @@ function ghostMove(o)
 			ghost.y -= ghost.sp
 		end
 
-		if ghost.x == o.x and ghost.y == o.y then
-			glb.score -= 5 
+		if ghost.x < o.x + o.w * 8
+		and ghost.x + 8 > o.x
+		and ghost.y < o.y + o.h * 8
+		and ghost.y + 8 > o.y then
+			glb.score -= 5
 			del(ghosts, ghost)
 		end
 	end
