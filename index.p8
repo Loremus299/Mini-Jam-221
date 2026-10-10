@@ -143,7 +143,7 @@ end
 sceneManager = {
   map = {
     init = mapInit,
-    update = mapUpdaet,
+    update = mapUpdate,
     draw = mapDraw,
   },
   cur = "map"
