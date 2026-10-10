@@ -111,21 +111,21 @@ ghosts = {}
 ghost = {
 	spr = 7, sp = 0,
 	x = 0, y = 0,
-	fx = false, fy = false 
+	fx = false
 }
 
 function newGhost(x, y, sp)
 	local ghostInstance = {
 		spr = 7, sp = sp,
 		x = x, y = y,
-		fx = false, fy = false
+		fx = false
 	}
 	add(ghosts, ghostInstance)
 end
 
 function spawnGhosts(sd)
-	if sd.mapX == 0 and sd.mapY == 0 then
-		newGhost(8, 8, 0.5)
+	if sd.mapX == 1 and sd.mapY == 0 then
+		newGhost(112, 112, 0.5)
 	end
 end
 
@@ -226,6 +226,7 @@ function roomInit()
 end
 
 function roomUpdate()
+	glb.time -= 0.25
 	movement(plr)
 	sceneTransition(plr, sd, "map")
 
