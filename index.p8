@@ -99,10 +99,10 @@ function collectCoin(o, sd)
 	glb.score += 1
 end
 -->8
-function s0init()
+function mapInit()
 end
 
-function s0update()
+function mapUpdate()
 	glb.time -= 1
 	movement(plr)
 
@@ -132,7 +132,7 @@ function s0update()
 	end
 end
 
-function s0draw()
+function mapDraw()
 	cls()
 	map(sd.mapX * 16, sd.mapY * 16)
 	spr(plr.spr, plr.x, plr.y, plr.w, plr.h, plr.fx, plr.fy)
@@ -141,12 +141,12 @@ function s0draw()
 end
 -->8
 sceneManager = {
-  s0 = {
-    init = s0init,
-    update = s0update,
-    draw = s0draw,
+  map = {
+    init = mapInit,
+    update = mapUpdaet,
+    draw = mapDraw,
   },
-  cur = "s0"
+  cur = "map"
 }
 
 function _init() 
