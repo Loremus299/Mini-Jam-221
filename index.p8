@@ -269,7 +269,7 @@ function mapDraw()
 	end
 	if sd.mapX == 0 and sd.mapY == 0 then
 		print("come back here to burn leaves.", 10, 10, 3)
-		print("quick! Before time goes to 0", 10, 20, 3)
+		print("quick! before time goes to 0", 10, 20, 3)
 	end
 end
 
