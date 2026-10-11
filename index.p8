@@ -259,13 +259,17 @@ function mapDraw()
 	cls()
 	map(sd.mapX * 16, sd.mapY * 16)
 	spr(plr.spr, plr.x, plr.y, plr.w, plr.h, plr.fx, plr.fy)
-	print(glb.score, 2, 122, 3)
-	print(flr(glb.time / 60), 2, 2, 3)
+	print(glb.score, 2, 122, 8)
+	print(flr(glb.time / 60), 2, 2, 8)
 	for i=0, glb.keys-1 do
 		spr(3,2 + (i * 8), 10)
 	end
 	for ghost in all(ghosts) do
 		spr(ghost.spr, ghost.x, ghost.y, 1, 1, ghost.fx, ghost.fy)
+	end
+	if sd.mapX == 0 and sd.mapY == 0 then
+		print("come back here to burn leaves.", 10, 10, 3)
+		print("quick! Before time goes to 0", 10, 20, 3)
 	end
 end
 
@@ -303,6 +307,7 @@ function roomDraw()
 		depositTimer -= 1
 		print("+ 2 x "..deposit )
 	end
+	print("Press Z to deposit leaves", 10, 114, 3)
 end
 
 -->8
