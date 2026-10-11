@@ -28,7 +28,7 @@ plr = {
 
 	dx = 0, dy = 0,
 
-	ax = 8, ay = 8
+	ax = 2, ay = 2
 }
 
 function onDown(k, f)
@@ -54,20 +54,33 @@ function collide(o, sd, f)
       or fget(mget(tx, th), f)
       or fget(mget(tw, th), f)
 end
+
+function findFlagTile(o, sd, flag)
+	local tx = flr(o.x / 8) + sd.mapX * 16
+	local ty = flr(o.y / 8) + sd.mapY * 16
+	local tw = flr((o.x + o.w * 8 - 1) / 8) + sd.mapX * 16
+	local th = flr((o.y + o.h * 8 - 1) / 8) + sd.mapY * 16
+
+	if fget(mget(tx, ty), flag) then return tx, ty end
+	if fget(mget(tw, ty), flag) then return tw, ty end
+	if fget(mget(tx, th), flag) then return tx, th end
+	if fget(mget(tw, th), flag) then return tw, th end
+end
 -->8
 function movement(o)
-	onClick(1, function() 
+	onDown(1, function() 
 		o.dx += o.ax
 	end)
 
-	onClick(0, function() 
+	onDown(0, function() 
 		o.dx -= o.ax
 	end)
 
 	o.x += o.dx
 
 	if collide(o, sd, 4) and glb.keys > 0 then
-		mset(flr(plr.x / 8) + (sd.mapX * 16), flr(plr.y / 8) + (sd.mapY * 16), 0)
+		local tx, ty = findFlagTile(plr, sd, 4)
+		mset(tx, ty, 0)
 		glb.keys -= 1
 		glb.score += 5
 	end
@@ -82,11 +95,11 @@ function movement(o)
 		o.dx = 0
 	end
 
-	onClick(3, function() 
+	onDown(3, function() 
 		o.dy += o.ay
 	end)
 
-	onClick(2, function() 
+	onDown(2, function() 
 		o.dy -= o.ay
 	end)
 
@@ -116,8 +129,11 @@ function movement(o)
 end
 
 function collectCoin(o, sd)
-	mset(flr(o.x / 8) + (sd.mapX * 16), flr(o.y / 8) + (sd.mapY * 16), 0)
-	glb.score += 1
+	local tx, ty = findFlagTile(o, sd, 1)
+	if tx then
+		mset(tx, ty, 0)
+		glb.score += 1
+	end
 end
 
 function sceneTransition(o, sd, newScene)
@@ -146,32 +162,32 @@ end
 
 function spawnGhosts(sd)
 	if sd.mapX == 1 and sd.mapY == 0 then
-		newGhost(112, 112, 0.5)
+		newGhost(112, 112, 1)
 	end
 	if sd.mapX == 0 and sd.mapY == 1 then
-		newGhost(8, 60, 0.5)
+		newGhost(8, 60, 1)
 	end
 	if sd.mapX == 3 and sd.mapY == 0 then
-		newGhost(64, 64, 0.5)
+		newGhost(64, 64, 1)
 	end
 	if sd.mapX == 4 and sd.mapY == 0 then
-		newGhost(64, 64, 0.5)
+		newGhost(64, 64, 1)
 	end
 	if sd.mapX == 3 and sd.mapY == 1 then
-		newGhost(120, 0, 0.5)
+		newGhost(120, 0, 1)
 	end
 	if sd.mapX == 1 and sd.mapY == 1 then
-		newGhost(64, 64, 0.5)
+		newGhost(64, 64, 1)
 	end
 	if sd.mapX == 0 and sd.mapY == 2 then
-		newGhost(0, 64, 0.5)
-		newGhost(64, 64, 0.5)
+		newGhost(0, 64, 1)
+		newGhost(64, 64, 1)
 	end
 	if sd.mapX == 0 and sd.mapY == 3 then
 		newGhost(120, 32, 0.5)
 	end
 		if sd.mapX == 1 and sd.mapY == 3 then
-		newGhost(120, 120, 0.5)
+		newGhost(120, 120, 1)
 	end
 end
 
@@ -248,7 +264,8 @@ function mapUpdate()
 	end
 
 	if collide(plr, sd, 3) then
-		mset(flr(plr.x / 8) + (sd.mapX * 16), flr(plr.y / 8) + (sd.mapY * 16), 0)
+		local tx, ty = findFlagTile(plr, sd, 3)
+		mset(tx, ty, 0)
 		glb.keys += 1
 	end
 	ghostMove(plr)
