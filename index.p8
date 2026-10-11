@@ -146,26 +146,26 @@ end
 
 function spawnGhosts(sd)
 	if sd.mapX == 1 and sd.mapY == 0 then
-		newGhost(112, 112, 0.25)
+		newGhost(112, 112, 0.5)
 	end
 	if sd.mapX == 0 and sd.mapY == 1 then
-		newGhost(8, 60, 0.25)
+		newGhost(8, 60, 0.5)
 	end
 	if sd.mapX == 3 and sd.mapY == 0 then
-		newGhost(64, 64, 0.25)
+		newGhost(64, 64, 0.5)
 	end
 	if sd.mapX == 4 and sd.mapY == 0 then
-		newGhost(64, 64, 0.25)
+		newGhost(64, 64, 0.5)
 	end
 	if sd.mapX == 3 and sd.mapY == 1 then
-		newGhost(120, 0, 0.25)
+		newGhost(120, 0, 0.5)
 	end
 	if sd.mapX == 1 and sd.mapY == 1 then
-		newGhost(64, 64, 0.25)
+		newGhost(64, 64, 0.5)
 	end
 	if sd.mapX == 0 and sd.mapY == 2 then
-		newGhost(0, 64, 0.25)
-		newGhost(64, 64, 0.25)
+		newGhost(0, 64, 0.5)
+		newGhost(64, 64, 0.5)
 	end
 	if sd.mapX == 0 and sd.mapY == 3 then
 		newGhost(120, 32, 0.5)
